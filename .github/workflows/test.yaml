@@ -1,0 +1,61 @@
+---
+name: Test
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**.py"
+      - "**.sh"
+      - "**.toml"
+      - "**.yaml"
+      - "docker-compose.yaml"
+      - "Dockerfile"
+  workflow_dispatch:
+jobs:
+  container:
+    name: Container
+    runs-on: ubuntu-24.04
+    steps:
+      # Checkout repository
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      # Build and start image
+      - name: Build and start image
+        run: |
+          docker compose up --detach
+        working-directory: irrd
+      # Wait for container to start and run
+      - name: Wait for container to start and run
+        run: |
+          sleep 300
+      # Check status of IRRd and IRR Explorer
+      - name: Check status of IRRd and IRR Explorer
+        run: |
+          curl -fsSLX GET "http://localhost:8080/v1/status" | grep "Listening on"
+          curl -fsSLX GET "https://irr.internet.asn.au" | grep "<title>IRR explorer</title>"
+      # Grab the container logs
+      - name: Grab container logs
+        run: |
+          docker compose logs irrd
+        working-directory: irrd
+      # Stop and remove containers
+      - name: Stop and remove container
+        run: |
+          docker compose down
+        working-directory: irrd
+  shell:
+    name: Shell
+    permissions:
+      security-events: write
+    runs-on: ubuntu-24.04
+    steps:
+      # Checkout repository
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      # Run ShellCheck
+      # https://www.shellcheck.net/wiki/GitHub-Actions
+      - name: Run ShellCheck
+        run: find . -type f -name "*.sh" -exec shellcheck {} +

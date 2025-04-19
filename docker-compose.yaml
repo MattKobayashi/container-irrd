@@ -1,0 +1,90 @@
+---
+name: irrd
+services:
+  ## IRRd ##
+  # Ports: 43/tcp, 8000/tcp
+  irrd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: irrd
+    depends_on:
+      - irrd-database
+      - irrd-redis
+    networks:
+      - irrd
+    ports:
+      - mode: host
+        protocol: tcp
+        published: 43
+        target: 43
+      - mode: host
+        protocol: tcp
+        published: 8000
+        target: 8000
+      - mode: host
+        protocol: tcp
+        published: 8080
+        target: 8080
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./irrd.yaml
+        target: /opt/irrd/irrd.yaml
+      - type: bind
+        source: ./irrexplorer.yaml
+        target: /opt/irrexplorer/irrexplorer.yaml
+  ## IRRd Database ##
+  # Ports: 5432/tcp
+  irrd-database:
+    command:
+      [
+        "-c",
+        "random_page_cost=1.0",
+        "-c",
+        "work_mem=50MB",
+        "-c",
+        "shared_buffers=1GB",
+        "-c",
+        "max_connections=1000",
+      ]
+    container_name: irrd-database
+    environment:
+      - "PGDATA=/var/lib/postgresql/data/pgdata"
+      - "POSTGRES_DB=irrd"
+      - "POSTGRES_PASSWORD=irrd"
+      - "POSTGRES_USER=irrd"
+    image: "postgres:15.12-alpine3.20@sha256:7120abaf6c36f3bf9c173a416f6da81f033eefdc3a7860869186300373bf4ef9"
+    networks:
+      - irrd
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: irrd-database_data
+        target: /var/lib/postgresql/data/
+  ## IRRd Redis ##
+  # Ports: 6379/tcp
+  irrd-redis:
+    container_name: irrd-redis
+    image: "redis:7.4.1-alpine3.20@sha256:c1e88455c85225310bbea54816e9c3f4b5295815e6dbf80c34d40afc6df28275"
+    networks:
+      - irrd
+    restart: unless-stopped
+    volumes:
+      - source: redis_data
+        target: /data
+        type: volume
+networks:
+  irrd:
+    name: irrd
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 10.12.0.0/24
+        - subnet: fdea:420:cafe::/64
+volumes:
+  irrd-database_data:
+    name: irrd-database_data
+  redis_data:
+    name: redis_data
