@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        container: [irrd]
+        container: [container-irrd]
     steps:
       # Checkout repository
       # https://github.com/actions/checkout
