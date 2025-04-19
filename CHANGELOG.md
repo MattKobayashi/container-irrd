@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/MattKobayashi/container-irrd/compare/v1.0.0...v1.0.1) (2025-04-19)
+
+
+### Bug Fixes
+
+* Correct name in matrix ([39f89ff](https://github.com/MattKobayashi/container-irrd/commit/39f89ffaa6cc0678c8c9212cff8eb7d5df141cff))
+
 ## 1.0.0 (2025-04-19)
 
 
