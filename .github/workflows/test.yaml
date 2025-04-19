@@ -9,7 +9,6 @@ on:
       - "**.sh"
       - "**.toml"
       - "**.yaml"
-      - "docker-compose.yaml"
       - "Dockerfile"
   workflow_dispatch:
 jobs:
