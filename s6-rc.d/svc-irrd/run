@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# irrd needs to start as root
+exec /opt/irrd/bin/irrd --config /opt/irrd/irrd.yaml --foreground

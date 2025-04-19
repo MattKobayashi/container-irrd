@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+cd /opt/irrexplorer/ \
+&& su irrexplorer -c '/usr/local/bin/supercronic /opt/irrexplorer/cron/import-data'

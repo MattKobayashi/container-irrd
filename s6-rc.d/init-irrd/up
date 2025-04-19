@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+s6-setuidgid irrd
+/opt/irrd/init-irrd.sh
