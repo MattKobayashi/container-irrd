@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       repo-owner: ${{ steps.repo-lowercase.outputs.REPO_OWNER }}
+    permissions:
+      contents: read
     steps:
       - name: Convert repository owner name to lowercase
         id: repo-lowercase
@@ -22,6 +24,9 @@ jobs:
     name: Build and publish image
     runs-on: ubuntu-24.04
     needs: [build-setup]
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
