@@ -1,5 +1,5 @@
 ---
-name: Build and publish container images
+name: Publish
 on:
   release:
     types:
@@ -9,7 +9,7 @@ env:
   REGISTRY: ghcr.io
 jobs:
   build-setup:
-    name: Set up build environment
+    name: Setup
     runs-on: ubuntu-24.04
     outputs:
       repo-owner: ${{ steps.repo-lowercase.outputs.REPO_OWNER }}
@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "REPO_OWNER=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
   build-publish:
-    name: Build and publish image
+    name: Image
     runs-on: ubuntu-24.04
     needs: [build-setup]
     permissions:
