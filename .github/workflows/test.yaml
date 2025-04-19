@@ -25,7 +25,6 @@ jobs:
       - name: Build and start image
         run: |
           docker compose up --detach
-        working-directory: irrd
       # Wait for container to start and run
       - name: Wait for container to start and run
         run: |
@@ -39,12 +38,10 @@ jobs:
       - name: Grab container logs
         run: |
           docker compose logs irrd
-        working-directory: irrd
       # Stop and remove containers
       - name: Stop and remove container
         run: |
           docker compose down
-        working-directory: irrd
   shell:
     name: Shell
     permissions:
