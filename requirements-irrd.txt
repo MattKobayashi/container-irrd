@@ -1,2 +1,2 @@
-psycopg[binary]==3.2.7
+psycopg2-binary==2.9.10
 pyyaml==6.0.2
