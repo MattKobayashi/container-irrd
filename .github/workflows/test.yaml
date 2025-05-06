@@ -24,11 +24,13 @@ jobs:
           curl -fsSLX GET "http://localhost:8080/v1/status" | grep "Listening on"
           curl -fsSLX GET "https://irr.internet.asn.au" | grep "<title>IRR explorer</title>"
       # Grab the container logs
-      - name: Grab container logs
+      - if: ${{ !cancelled() }}
+        name: Grab container logs
         run: |
           docker compose logs irrd
       # Stop and remove containers
-      - name: Stop and remove container
+      - if: ${{ !cancelled() }}
+        name: Stop and remove container
         run: |
           docker compose down
   shell:
