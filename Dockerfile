@@ -37,7 +37,7 @@ USER irrd
 WORKDIR /opt/irrd
 COPY --chown=irrd:irrd --chmod=600 requirements-irrd.txt /opt/irrd/requirements.txt
 ENV PIPX_BIN_DIR=/opt/irrd/bin
-RUN pip install -r requirements.txt \
+RUN pip install --requirement requirements.txt \
     && pipx ensurepath \
     && pipx install irrd==4.4.4
 COPY --chown=irrd:irrd --chmod=700 ./scripts/init-irrd.sh /opt/irrd/init-irrd.sh
@@ -57,7 +57,7 @@ ENV IRRE_SOURCE_SHA1SUM=afdb4d0fd9e1c24ed816e45e5030f01d60e26781
 ADD --chown=irrexplorer:irrexplorer https://github.com/NLNOG/irrexplorer/archive/aeb6f6bf6ba62c95ce196726149886b4aadfb333.tar.gz /tmp/irrexplorer.tar.gz
 RUN echo "${IRRE_SOURCE_SHA1SUM}  /tmp/irrexplorer.tar.gz" | sha1sum -c - \
     && tar -xz --strip-components=1 --file="/tmp/irrexplorer.tar.gz" \
-    && pip install -r requirements.txt \
+    && pip install --requirement requirements.txt \
     && pipx ensurepath \
     && pipx install poetry==2.1.3 \
     && /opt/irrexplorer/bin/poetry install
