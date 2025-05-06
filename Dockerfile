@@ -35,9 +35,9 @@ RUN adduser --gecos '' --disabled-password irrd \
     && chown -R irrd:irrd /opt/irrd
 USER irrd
 WORKDIR /opt/irrd
+COPY --chown=irrd:irrd --chmod=600 requirements-irrd.txt /opt/irrd/requirements.txt
 ENV PIPX_BIN_DIR=/opt/irrd/bin
-RUN pip install psycopg2-binary==2.9.10 \
-    && pip install pyyaml==6.0.2 \
+RUN pip install -r requirements.txt \
     && pipx ensurepath \
     && pipx install irrd==4.4.4
 COPY --chown=irrd:irrd --chmod=700 ./scripts/init-irrd.sh /opt/irrd/init-irrd.sh
@@ -51,14 +51,15 @@ RUN adduser --gecos '' --disabled-password irrexplorer \
     && npm install --global yarn
 USER irrexplorer
 WORKDIR /opt/irrexplorer
+COPY --chown=irrexplorer:irrexplorer --chmod=600 requirements-irrexplorer.txt /opt/irrexplorer/requirements.txt
 ENV PIPX_BIN_DIR=/opt/irrexplorer/bin
-ENV IRRE_SOURCE_SHA1SUM=56402efa8deb8b7fb865d88a5f9895c52f79a1fe
-ADD --chown=irrexplorer:irrexplorer https://github.com/NLNOG/irrexplorer/archive/db76b42d96e5baea47548248d7d3b9528bcc63da.tar.gz /tmp/irrexplorer.tar.gz
+ENV IRRE_SOURCE_SHA1SUM=afdb4d0fd9e1c24ed816e45e5030f01d60e26781
+ADD --chown=irrexplorer:irrexplorer https://github.com/NLNOG/irrexplorer/archive/aeb6f6bf6ba62c95ce196726149886b4aadfb333.tar.gz /tmp/irrexplorer.tar.gz
 RUN echo "${IRRE_SOURCE_SHA1SUM}  /tmp/irrexplorer.tar.gz" | sha1sum -c - \
     && tar -xz --strip-components=1 --file="/tmp/irrexplorer.tar.gz" \
-    && pip install python-dotenv==1.0.1 \
+    && pip install -r requirements.txt \
     && pipx ensurepath \
-    && pipx install poetry==2.1.1 \
+    && pipx install poetry==2.1.3 \
     && /opt/irrexplorer/bin/poetry install
 COPY --chown=irrexplorer:irrexplorer --chmod=700 ./scripts/init-irrexplorer.sh /opt/irrexplorer/init-irrexplorer.sh
 COPY --chown=irrexplorer:irrexplorer --chmod=700 ./scripts/init-irrexplorer.py /opt/irrexplorer/init-irrexplorer.py
