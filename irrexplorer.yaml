@@ -6,7 +6,7 @@ irrexplorer:
   # bgp_ipv6_length_cutoff: 124
   # bgp_source: "https://bgp.tools/table.jsonl"
   # bgp_source_minimum_hits: 250
-  database_url: "postgresql://irrexplorer:irrexplorer@irrd-database/irrexplorer"
+  database_url: "postgresql://irrexplorer:irrexplorer@irrd_postgres/irrexplorer"
   # debug: False
   # http_port: 8000
   # http_workers: 4
