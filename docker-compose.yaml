@@ -54,7 +54,7 @@ services:
       - "POSTGRES_DB=irrd"
       - "POSTGRES_PASSWORD=irrd"
       - "POSTGRES_USER=irrd"
-    image: "postgres:15.13-alpine3.21@sha256:709cfb93ad22e488a840e2ad96dcb41a1c3491736d97db4d7c5fbda7557fd760"
+    image: "postgres:15.13-alpine3.21@sha256:5402d0a13eab398c7c38f1b90af081d7f9e5977606ed869cecdb661403f6586a"
     networks:
       - irrd
     restart: unless-stopped
