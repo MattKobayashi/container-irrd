@@ -8,15 +8,15 @@ Create appropriate configuration files and mount them into the container as show
 
 ### Required `irrd.yaml` values
 
-- `irrd.database_url`: `"postgresql://irrd:irrd@irrd-database/irrd"`
-- `irrd.redis_url`: `"redis://irrd-redis"`
+- `irrd.database_url`: `"postgresql://irrd:irrd@irrd_postgres/irrd"`
+- `irrd.redis_url`: `"redis://irrd_redis"`
 - `irrd.piddir`: `/opt/irrd`
 - `irrd.user`: `irrd`
 - `irrd.group`: `irrd`
 
 ### Required `irrexplorer.yaml` values
 
-- `irrexplorer.database_url`: `"postgresql://irrexplorer:irrexplorer@irrd-database/irrexplorer"`
+- `irrexplorer.database_url`: `"postgresql://irrexplorer:irrexplorer@irrd_postgres/irrexplorer"`
 - `irrexplorer.irrd_endpoint`: `"https://irrd.example.net/graphql/"`
 
 ## Running

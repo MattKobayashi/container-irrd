@@ -9,8 +9,8 @@ services:
       dockerfile: Dockerfile
     container_name: irrd
     depends_on:
-      - irrd-database
-      - irrd-redis
+      - irrd_postgres
+      - irrd_redis
     networks:
       - irrd
     ports:
@@ -36,7 +36,7 @@ services:
         target: /opt/irrexplorer/irrexplorer.yaml
   ## IRRd Database ##
   # Ports: 5432/tcp
-  irrd-database:
+  irrd_postgres:
     command:
       [
         "-c",
@@ -48,7 +48,7 @@ services:
         "-c",
         "max_connections=1000",
       ]
-    container_name: irrd-database
+    container_name: irrd_postgres
     environment:
       - "PGDATA=/var/lib/postgresql/data/pgdata"
       - "POSTGRES_DB=irrd"
@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
     volumes:
       - type: volume
-        source: irrd-database_data
+        source: irrd_postgres
         target: /var/lib/postgresql/data/
   ## IRRd Redis ##
   # Ports: 6379/tcp
@@ -71,7 +71,7 @@ services:
       - irrd
     restart: unless-stopped
     volumes:
-      - source: redis_data
+      - source: redis
         target: /data
         type: volume
 networks:
@@ -84,7 +84,7 @@ networks:
         - subnet: 10.12.0.0/24
         - subnet: fdea:420:cafe::/64
 volumes:
-  irrd-database_data:
-    name: irrd-database_data
-  redis_data:
-    name: redis_data
+  irrd_postgres:
+    name: irrd_postgres
+  redis:
+    name: redis

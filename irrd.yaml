@@ -1,6 +1,6 @@
 irrd:
-  database_url: "postgresql://irrd:irrd@irrd-database/irrd"
-  redis_url: "redis://irrd-redis"
+  database_url: "postgresql://irrd:irrd@irrd_postgres/irrd"
+  redis_url: "redis://irrd_redis"
   piddir: /opt/irrd
   user: irrd
   group: irrd
