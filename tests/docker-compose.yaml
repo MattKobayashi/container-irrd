@@ -5,7 +5,7 @@ services:
   # Ports: 43/tcp, 8000/tcp
   irrd:
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     container_name: irrd
     depends_on:

@@ -14,6 +14,7 @@ jobs:
       - name: Build and start image
         run: |
           docker compose up --detach
+        working-directory: tests
       # Wait for container to start and run
       - name: Wait for container to start and run
         run: |
@@ -28,11 +29,13 @@ jobs:
         name: Grab container logs
         run: |
           docker compose logs irrd
+        working-directory: tests
       # Stop and remove containers
       - if: ${{ !cancelled() }}
         name: Stop and remove container
         run: |
           docker compose down
+        working-directory: tests
   shell:
     name: Shell
     permissions:
