@@ -29,10 +29,10 @@ services:
     restart: unless-stopped
     volumes:
       - type: bind
-        source: ./irrd.yaml
+        source: ../irrd.yaml
         target: /opt/irrd/irrd.yaml
       - type: bind
-        source: ./irrexplorer.yaml
+        source: ../irrexplorer.yaml
         target: /opt/irrexplorer/irrexplorer.yaml
   ## IRRd Database ##
   # Ports: 5432/tcp
