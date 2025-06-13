@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/MattKobayashi/container-irrd/compare/v1.0.1...v1.0.2) (2025-06-13)
+
+
+### Bug Fixes
+
+* **deps:** update python to v3.13.5 ([#33](https://github.com/MattKobayashi/container-irrd/issues/33)) ([a876ae1](https://github.com/MattKobayashi/container-irrd/commit/a876ae16216bdbd523f7a577e084a2e363773519))
+
 ## [1.0.1](https://github.com/MattKobayashi/container-irrd/compare/v1.0.0...v1.0.1) (2025-06-05)
 
 
