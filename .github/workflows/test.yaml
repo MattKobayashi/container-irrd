@@ -9,7 +9,7 @@ jobs:
       # Checkout repository
       # https://github.com/actions/checkout
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
       # Build and start image
       - name: Build and start image
         run: |
@@ -46,7 +46,7 @@ jobs:
       # Checkout repository
       # https://github.com/actions/checkout
       - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
       # Run ShellCheck
       # https://www.shellcheck.net/wiki/GitHub-Actions
       - name: Run ShellCheck
