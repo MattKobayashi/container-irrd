@@ -27,8 +27,8 @@ Start the daemon:
 docker run \
   -d \
   --name irrd \
-  --volume /path/to/irrd.yaml:/etc/irrd.yaml \
-  --volume /path/to/irrexplorer.yaml:/etc/irrexplorer.yaml \
+  --volume /path/to/irrd.yaml:/opt/irrd/irrd.yaml \
+  --volume /path/to/irrexplorer.yaml:/opt/irrexplorer/irrexplorer.yaml \
   ghcr.io/mattkobayashi/irrd
 ```
 
