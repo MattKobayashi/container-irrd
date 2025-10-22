@@ -1,4 +1,4 @@
-FROM python:3.14.0-slim-bookworm@sha256:ee1628e439affe23432bf7353ce431e24d8fc026cc4f6ec649f6f3615e7c4142
+FROM python:3.14.0-slim-bookworm@sha256:8a8d3341dfc71b7420256ceff425f64247da7e23fbe3fc23c3ea8cfbad59096d
 
 # Misc dependencies
 RUN apt-get update \
