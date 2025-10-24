@@ -1,5 +1,4 @@
 {
-  "extends": ["github>MattKobayashi/renovate-config"],
   "packageRules": [
     {
       "matchPackageNames": ["/^(.*/)?postgres$/"],
