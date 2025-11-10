@@ -56,11 +56,4 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "**.py"
-      - "**.sh"
-      - "**.toml"
-      - "**.yaml"
-      - "Dockerfile"
-      - "requirements*.txt"
   workflow_dispatch:
