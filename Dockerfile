@@ -4,26 +4,28 @@ FROM python:3.14.0-slim-bookworm@sha256:e8ea0e4fc6f1876e7d2cfccc0071847534b1d72f
 RUN apt-get update \
     && apt-get --no-install-recommends --yes install build-essential curl python3-dev pipx xz-utils
 
-# Node.js and NPM
 WORKDIR /tmp
-ENV NODE_VERSION=22.10.0 \
+
+# Node.js and NPM
+# renovate: datasource=github-releases packageName=nodejs/node
+ARG NODE_VERSION="v22.10.0" \
     NODE_PLATFORM=linux-x64
-RUN curl -O https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
-    && curl -O https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt \
-    && grep node-v${NODE_VERSION}-${NODE_PLATFORM}.tar.gz SHASUMS256.txt | sha256sum -c \
-    && tar -C /usr --strip-components=1 -xzf node-v${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
+RUN curl -O https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
+    && curl -O https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt \
+    && grep node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz SHASUMS256.txt | sha256sum -c \
+    && tar -C /usr --strip-components=1 -xzf node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
     && node --version \
     && npm --version
 
 # s6-overlay
-WORKDIR /tmp
-ENV S6_OVERLAY_VERSION=3.2.1.0
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz.sha256 /tmp
+# renovate: datasource=github-releases packageName=just-containers/s6-overlay
+ARG S6_OVERLAY_VERSION="v3.2.1.0"
+ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
+ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz.sha256 /tmp
 RUN echo "$(cat s6-overlay-noarch.tar.xz.sha256)" | sha256sum -c - \
     && tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz.sha256 /tmp
+ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
+ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz.sha256 /tmp
 RUN echo "$(cat s6-overlay-x86_64.tar.xz.sha256)" | sha256sum -c - \
     && tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 COPY s6-rc.d/ /etc/s6-overlay/s6-rc.d/
