@@ -8,7 +8,7 @@ WORKDIR /tmp
 
 # Node.js and NPM
 # renovate: datasource=github-releases packageName=nodejs/node
-ARG NODE_VERSION="v22.21.1" \
+ARG NODE_VERSION="v25.1.0" \
     NODE_PLATFORM=linux-x64
 RUN curl -O https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
     && curl -O https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt \
