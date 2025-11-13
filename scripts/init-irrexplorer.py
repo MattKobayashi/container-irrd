@@ -214,6 +214,6 @@ cron_dir.mkdir(parents=True, exist_ok=True)
 cron_file = Path("/opt/irrexplorer/cron/import-data")
 cron_file.touch(mode=0o600, exist_ok=True)
 cron_file.write_text(
-    f"{irrexplorer_conf['irrexplorer']['import_data_cron']} uv run /opt/irrd/.venv/bin/poetry run import-data\n",
+    f"{irrexplorer_conf['irrexplorer']['import_data_cron']} /opt/irrd/.venv/bin/poetry run import-data\n",
     encoding="utf-8",
 )

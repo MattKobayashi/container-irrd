@@ -24,9 +24,9 @@ jobs:
       # Response check
       - name: Response check
         run: |
-          sleep 300
-          curl -fsSLX GET "http://localhost:8080/v1/status" | grep "Listening on"
-          curl -fsSLX GET "http://localhost:8000" | grep "<title>IRR explorer</title>"
+          sleep 60
+          curl -fsSLX GET "http://127.0.0.1:8080/v1/status" | grep "Listening on"
+          curl -fsSLX GET "http://127.0.0.1:8000" | grep "<title>IRR explorer</title>"
       # Grab the container logs
       - if: ${{ !cancelled() }}
         name: Grab container logs
