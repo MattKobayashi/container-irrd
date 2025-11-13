@@ -8,6 +8,7 @@ ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 RUN apt-get update \
     && apt-get --no-install-recommends --yes install \
     build-essential \
+    ca-certificates \
     cargo \
     libffi-dev \
     libpq-dev \
@@ -38,6 +39,10 @@ RUN apt-get update \
     build-essential \
     ca-certificates \
     curl
+
+# Fix for py-radix builds
+ARG CFLAGS=-Wno-error=incompatible-pointer-types
+ARG CXXFLAGS=-Wno-error=incompatible-pointer-types
 
 # Node.js and NPM
 # renovate: datasource=github-releases packageName=nodejs/node
