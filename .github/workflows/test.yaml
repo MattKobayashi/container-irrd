@@ -21,15 +21,12 @@ jobs:
         run: |
           docker compose up --detach
         working-directory: tests
-      # Wait for container to start and run
-      - name: Wait for container to start and run
+      # Response check
+      - name: Response check
         run: |
-          sleep 300
-      # Check status of IRRd and IRR Explorer
-      - name: Check status of IRRd and IRR Explorer
-        run: |
-          curl -fsSLX GET "http://localhost:8080/v1/status" | grep "Listening on"
-          curl -fsSLX GET "https://irr.internet.asn.au" | grep "<title>IRR explorer</title>"
+          sleep 60
+          curl -fsSLX GET "http://127.0.0.1:8080/v1/status" | grep "Listening on"
+          curl -fsSLX GET "http://127.0.0.1:8000" | grep "<title>IRR explorer</title>"
       # Grab the container logs
       - if: ${{ !cancelled() }}
         name: Grab container logs

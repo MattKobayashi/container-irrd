@@ -40,15 +40,15 @@ irrd:
     roa_source: https://rpki.gin.ntt.net/api/export.json
     roa_import_timer: 3600
   sources_default:
-    - RADB
+    - BELL
     - RPKI
   sources:
-    RADB:
+    BELL:
       # Run a full import at first, then periodic NRTM updates.
       authoritative: false
       keep_journal: true
-      import_serial_source: "ftp://ftp.radb.net/radb/dbase/RADB.CURRENTSERIAL"
-      import_source: "ftp://ftp.radb.net/radb/dbase/radb.db.gz"
+      import_serial_source: "ftp://ftp.radb.net/radb/dbase/BELL.CURRENTSERIAL"
+      import_source: "ftp://ftp.radb.net/radb/dbase/bell.db.gz"
       nrtm_host: nrtm.radb.net
       nrtm_port: 43
       nrtm_access_list: filtered_nrtm
