@@ -152,7 +152,8 @@ RUN echo "Node.js version: $(node --version)" \
     && echo "NPM version: $(npm --version)"
 
 # s6-overlay
-COPY --from=s6overlay /etc/s6-overlay/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
+COPY --from=s6overlay /init /command/ /package/ /
+COPY --from=s6overlay /etc/s6-overlay/ /etc/s6-overlay/
 
 # Supercronic
 COPY --from=supercronic /usr/local/bin/supercronic /usr/local/bin/supercronic
