@@ -29,7 +29,7 @@ jobs:
           end=$((SECONDS+timeout))
 
           echo "Waiting for IRRd to be ready at http://127.0.0.1:8080/v1/status ..."
-          until curl -fsS http://127.0.0.1:8080/v1/status | grep -q "Listening on"; do
+          until curl -fsSLX GET http://127.0.0.1:8080/v1/status | grep -q "Listening on"; do
             if (( SECONDS >= end )); then
               echo "IRRd not ready within ${timeout}s" >&2
               exit 1
@@ -40,7 +40,7 @@ jobs:
           echo "IRRd is ready."
 
           echo "Waiting for IRR Explorer to be ready at http://127.0.0.1:8000/ ..."
-          until curl -fsS http://127.0.0.1:8000/ | grep -q "<title>IRR explorer</title>"; do
+          until curl -fsSLX GET http://127.0.0.1:8000/ | grep -q "<title>IRR explorer</title>"; do
             if (( SECONDS >= end )); then
               echo "IRR Explorer not ready within ${timeout}s" >&2
               exit 1
