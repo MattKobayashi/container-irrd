@@ -22,8 +22,8 @@ ARG CXXFLAGS=-Wno-error=incompatible-pointer-types
 # IRRd
 WORKDIR /opt/irrd
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv-irrd.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject-irrd.toml,target=pyproject.toml \
+    --mount=type=bind,source=uv/irrd/uv.lock,target=uv.lock \
+    --mount=type=bind,source=uv/irrd/pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-dev
 
 
@@ -62,8 +62,8 @@ ADD https://github.com/NLNOG/irrexplorer/archive/7d9d64c0d79a87d1f60a8fd03178a7d
 RUN echo "${IRRE_SHA1SUM}  /tmp/irrexplorer.tar.gz" | sha1sum -c - \
     && tar -xz --strip-components=1 --file="/tmp/irrexplorer.tar.gz"
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv-irrexplorer.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject-irrexplorer.toml,target=pyproject.toml \
+    --mount=type=bind,source=uv/irrexplorer/uv.lock,target=uv.lock \
+    --mount=type=bind,source=uv/irrexplorer/pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-dev
 RUN /opt/irrexplorer/.venv/bin/poetry install
 
