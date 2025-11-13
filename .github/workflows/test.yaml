@@ -21,15 +21,39 @@ jobs:
         run: |
           docker compose up --detach
         working-directory: tests
-      # Wait for container to start and run
-      - name: Wait for container to start and run
+      # Readiness check
+      - name: Readiness check
         run: |
-          sleep 300
-      # Check status of IRRd and IRR Explorer
-      - name: Check status of IRRd and IRR Explorer
+          timeout=600
+          interval=60
+          end=$((SECONDS+timeout))
+
+          echo "Waiting for IRRd to be ready at http://localhost:8080/v1/status ..."
+          until curl -fsS http://localhost:8080/v1/status | grep -q "Listening on"; do
+            if (( SECONDS >= end )); then
+              echo "IRRd not ready within ${timeout}s" >&2
+              exit 1
+            fi
+            echo "IRRd not ready yet; retrying in ${interval}s..."
+            sleep ${interval}
+          done
+          echo "IRRd is ready."
+
+          echo "Waiting for IRR Explorer to be ready at http://localhost:8000/ ..."
+          until curl -fsS http://localhost:8000/ | grep -q "<title>IRR explorer</title>"; do
+            if (( SECONDS >= end )); then
+              echo "IRR Explorer not ready within ${timeout}s" >&2
+              exit 1
+            fi
+            echo "IRR Explorer not ready yet; retrying in ${interval}s..."
+            sleep ${interval}
+          done
+          echo "IRR Explorer is ready."
+      # Response check
+      - name: Response check
         run: |
           curl -fsSLX GET "http://localhost:8080/v1/status" | grep "Listening on"
-          curl -fsSLX GET "https://irr.internet.asn.au" | grep "<title>IRR explorer</title>"
+          curl -fsSLX GET "https://localhost:8000" | grep "<title>IRR explorer</title>"
       # Grab the container logs
       - if: ${{ !cancelled() }}
         name: Grab container logs
