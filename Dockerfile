@@ -59,8 +59,8 @@ USER irrexplorer
 WORKDIR /opt/irrexplorer
 COPY --chown=irrexplorer:irrexplorer --chmod=600 requirements-irrexplorer.txt /opt/irrexplorer/requirements.txt
 ENV PIPX_BIN_DIR=/opt/irrexplorer/bin
-ENV IRRE_SOURCE_SHA1SUM=afdb4d0fd9e1c24ed816e45e5030f01d60e26781
-ADD --chown=irrexplorer:irrexplorer https://github.com/NLNOG/irrexplorer/archive/aeb6f6bf6ba62c95ce196726149886b4aadfb333.tar.gz /tmp/irrexplorer.tar.gz
+ENV IRRE_SOURCE_SHA1SUM=6448431c685ff056b293ddd732741468917e0013
+ADD --chown=irrexplorer:irrexplorer https://github.com/NLNOG/irrexplorer/archive/7d9d64c0d79a87d1f60a8fd03178a7d0afc4c9a2.tar.gz /tmp/irrexplorer.tar.gz
 RUN echo "${IRRE_SOURCE_SHA1SUM}  /tmp/irrexplorer.tar.gz" | sha1sum -c - \
     && tar -xz --strip-components=1 --file="/tmp/irrexplorer.tar.gz" \
     && pip install --requirement requirements.txt \
