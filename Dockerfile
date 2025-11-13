@@ -144,7 +144,9 @@ FROM debian:trixie-slim@sha256:a347fd7510ee31a84387619a492ad6c8eb0af2f2682b916ff
 # Dependencies
 RUN apt-get update \
     && apt-get --no-install-recommends --yes install \
-    adduser
+    adduser \
+    libpq5 \
+    && chmod 0655 /root
 
 # Node.js and NPM
 COPY --from=nodejs /usr/ /usr/
@@ -152,13 +154,16 @@ RUN echo "Node.js version: $(node --version)" \
     && echo "NPM version: $(npm --version)"
 
 # s6-overlay
-COPY --from=s6overlay /init /command/ /package/ /
+COPY --from=s6overlay /init /
+COPY --from=s6overlay /command/ /command/
+COPY --from=s6overlay /package/ /package/
 COPY --from=s6overlay /etc/s6-overlay/ /etc/s6-overlay/
 
 # Supercronic
 COPY --from=supercronic /usr/local/bin/supercronic /usr/local/bin/supercronic
 
 # IRRd
+COPY --chown=irrd:irrd --from=irrd /root/.local/share/uv /root/.local/share/uv
 RUN adduser --gecos '' --disabled-password irrd \
     && mkdir -p /opt/irrd \
     && chown -R irrd:irrd /opt/irrd
@@ -167,6 +172,7 @@ COPY --chown=irrd:irrd --chmod=700 ./scripts/init-irrd.sh /opt/irrd/init-irrd.sh
 COPY --chown=irrd:irrd --chmod=700 ./scripts/init-irrd.py /opt/irrd/init-irrd.py
 
 # IRRexplorer
+COPY --chown=irrexplorer:irrexplorer --from=irrexplorer /root/.local/share/uv /root/.local/share/uv
 RUN adduser --gecos '' --disabled-password irrexplorer \
     && mkdir -p /opt/irrexplorer \
     && chown -R irrexplorer:irrexplorer /opt/irrexplorer \

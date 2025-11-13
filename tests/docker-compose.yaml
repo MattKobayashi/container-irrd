@@ -13,6 +13,7 @@ services:
       - irrd_redis
     networks:
       - irrd
+    platform: linux/amd64
     ports:
       - mode: host
         protocol: tcp
