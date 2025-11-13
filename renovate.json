@@ -3,6 +3,10 @@
     {
       "matchPackageNames": ["/^(.*/)?postgres$/"],
       "allowedVersions": "<=15"
+    },
+    {
+      "matchPackageNames": ["/^(.*/)?node$/"],
+      "allowedVersions": "<=20"
     }
   ]
 }
