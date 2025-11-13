@@ -1,12 +1,16 @@
 {
   "packageRules": [
     {
+      "matchPackageNames": ["/^(.*/)?node$/"],
+      "allowedVersions": "<=20"
+    },
+    {
       "matchPackageNames": ["/^(.*/)?postgres$/"],
       "allowedVersions": "<=15"
     },
     {
-      "matchPackageNames": ["/^(.*/)?node$/"],
-      "allowedVersions": "<=20"
+      "matchPackageNames": ["/^(.*/)?python$/"],
+      "allowedVersions": "<=3.13"
     }
   ]
 }

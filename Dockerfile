@@ -1,8 +1,16 @@
-FROM python:3.14.0-slim-bookworm@sha256:e8ea0e4fc6f1876e7d2cfccc0071847534b1d72f2359cf0fd494006d05358faa
+FROM python:3.13.9-slim-trixie@sha256:85dfbf1b566b7addfe645faea9938e81a0a01a83580b0ea05fb23706357d77fb
 
 # Misc dependencies
 RUN apt-get update \
-    && apt-get --no-install-recommends --yes install build-essential curl jq python3-dev pipx xz-utils
+    && apt-get --no-install-recommends --yes install \
+    build-essential \
+    cargo \
+    curl \
+    jq \
+    libpq-dev \
+    pipx \
+    python3-dev \
+    xz-utils
 
 WORKDIR /tmp
 
@@ -14,8 +22,8 @@ RUN curl -O https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_
     && curl -O https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt \
     && grep node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz SHASUMS256.txt | sha256sum -c \
     && tar -C /usr --strip-components=1 -xzf node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
-    && node --version \
-    && npm --version
+    && echo "Node.js version: $(node --version)" \
+    && echo "NPM version: $(npm --version)"
 
 # s6-overlay
 # renovate: datasource=github-releases packageName=just-containers/s6-overlay
@@ -89,7 +97,12 @@ RUN export SUPERCRONIC_SHA256SUM=$(curl -fsSL \
     && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 # Cleanup
-RUN apt-get --yes --autoremove remove build-essential curl jq xz-utils \
+RUN apt-get --yes --autoremove remove \
+    build-essential \
+    cargo \
+    curl \
+    jq \
+    xz-utils \
     && apt-get clean
 
 # Set expose ports and entrypoint
