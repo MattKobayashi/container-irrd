@@ -389,11 +389,11 @@ wheels = [
 
 [[package]]
 name = "pbs-installer"
-version = "2025.10.31"
+version = "2025.11.20"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/99/53/35dedc8c84cf04617796cc0a56c16fc66196b7a044ff86913ce2367098f5/pbs_installer-2025.10.31.tar.gz", hash = "sha256:8529dbac1054408ccce5fb218a85a2d4a02f3657ddbde56eff79464105bba659", size = 64218, upload-time = "2025-11-01T23:02:38.39Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/24/8b/f20eb7f555f15fa39257bab0a392e7523b6b0975a5913b554d32ac867b09/pbs_installer-2025.11.20.tar.gz", hash = "sha256:6469b854835fa316c24c938df4563a72adae3d14b659eb4b23fa4bb347fd45f3", size = 64231, upload-time = "2025-11-20T23:02:57.567Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ea/9f/5da52598e258e0d76840d199a5199107b5a909ace4ac44523f786b7152fa/pbs_installer-2025.10.31-py3-none-any.whl", hash = "sha256:f24e8f01f13fee9a203feb62e90c8d204d64d71ad0a3f3abfd69673b02bbc68b", size = 66077, upload-time = "2025-11-01T23:02:36.832Z" },
+    { url = "https://files.pythonhosted.org/packages/27/65/f80d5ea8024d7ccee39f8286dc449b051d44b36659fa0f2ea2d1d5e308a2/pbs_installer-2025.11.20-py3-none-any.whl", hash = "sha256:5588b40a41b03101514c71cadb37ad75a3476dee43ba5fdaeec699e51ec0e94a", size = 66078, upload-time = "2025-11-20T23:02:56.077Z" },
 ]
 
 [package.optional-dependencies]
