@@ -123,7 +123,7 @@ RUN apt-get update \
 
 # Supercronic
 # renovate: datasource=github-releases packageName=aptible/supercronic
-ARG SUPERCRONIC_VERSION="v0.2.39"
+ARG SUPERCRONIC_VERSION="v0.2.40"
 ARG SUPERCRONIC="supercronic-linux-amd64"
 ARG SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/${SUPERCRONIC}
 RUN export SUPERCRONIC_SHA256SUM=$(curl -fsSL \
