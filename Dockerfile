@@ -1,4 +1,4 @@
-FROM debian:trixie-slim@sha256:91e29de1e4e20f771e97d452c8fa6370716ca4044febbec4838366d459963801 AS irrd
+FROM debian:trixie-slim@sha256:4bcb9db66237237d03b55b969271728dd3d955eaaa254b9db8a3db94550b1885 AS irrd
 
 # uv
 COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344d0135f0ca1b8465c4760b323904f05a /uv /uvx /bin/
@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
 
-FROM debian:trixie-slim@sha256:91e29de1e4e20f771e97d452c8fa6370716ca4044febbec4838366d459963801 AS irrexplorer
+FROM debian:trixie-slim@sha256:4bcb9db66237237d03b55b969271728dd3d955eaaa254b9db8a3db94550b1885 AS irrexplorer
 
 # uv
 COPY --from=ghcr.io/astral-sh/uv:0.9.21@sha256:15f68a476b768083505fe1dbfcc998344d0135f0ca1b8465c4760b323904f05a /uv /uvx /bin/
@@ -68,7 +68,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 RUN /opt/irrexplorer/.venv/bin/poetry install
 
 
-FROM debian:trixie-slim@sha256:91e29de1e4e20f771e97d452c8fa6370716ca4044febbec4838366d459963801 AS nodejs
+FROM debian:trixie-slim@sha256:4bcb9db66237237d03b55b969271728dd3d955eaaa254b9db8a3db94550b1885 AS nodejs
 
 # Dependencies
 RUN apt-get update \
@@ -88,7 +88,7 @@ RUN curl -O https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_
     && echo "NPM version: $(npm --version)"
 
 
-FROM debian:trixie-slim@sha256:91e29de1e4e20f771e97d452c8fa6370716ca4044febbec4838366d459963801 AS s6overlay
+FROM debian:trixie-slim@sha256:4bcb9db66237237d03b55b969271728dd3d955eaaa254b9db8a3db94550b1885 AS s6overlay
 
 # Dependencies
 RUN apt-get update \
@@ -112,7 +112,7 @@ RUN echo "$(cat s6-overlay-x86_64.tar.xz.sha256)" | sha256sum -c - \
 COPY s6-rc.d/ /etc/s6-overlay/s6-rc.d/
 
 
-FROM debian:trixie-slim@sha256:91e29de1e4e20f771e97d452c8fa6370716ca4044febbec4838366d459963801 AS supercronic
+FROM debian:trixie-slim@sha256:4bcb9db66237237d03b55b969271728dd3d955eaaa254b9db8a3db94550b1885 AS supercronic
 
 # Dependencies
 RUN apt-get update \
@@ -139,7 +139,7 @@ RUN export SUPERCRONIC_SHA256SUM=$(curl -fsSL \
     && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 
-FROM debian:trixie-slim@sha256:91e29de1e4e20f771e97d452c8fa6370716ca4044febbec4838366d459963801
+FROM debian:trixie-slim@sha256:4bcb9db66237237d03b55b969271728dd3d955eaaa254b9db8a3db94550b1885
 
 # Dependencies
 RUN apt-get update \
