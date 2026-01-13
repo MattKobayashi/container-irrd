@@ -46,7 +46,7 @@ ARG CXXFLAGS=-Wno-error=incompatible-pointer-types
 
 # Node.js and NPM
 # renovate: datasource=github-releases packageName=nodejs/node
-ARG NODE_VERSION="v20.19.6" \
+ARG NODE_VERSION="v20.20.0" \
     NODE_PLATFORM=linux-x64
 RUN curl -O https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
     && curl -O https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt \
@@ -78,7 +78,7 @@ RUN apt-get update \
 
 # Node.js and NPM
 # renovate: datasource=github-releases packageName=nodejs/node
-ARG NODE_VERSION="v20.19.6" \
+ARG NODE_VERSION="v20.20.0" \
     NODE_PLATFORM=linux-x64
 RUN curl -O https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${NODE_PLATFORM}.tar.gz \
     && curl -O https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt \
