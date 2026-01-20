@@ -134,7 +134,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "poetry", specifier = "==2.3.0" },
+    { name = "poetry", specifier = "==2.3.1" },
     { name = "python-dotenv", specifier = "==1.2.1" },
 ]
 
@@ -423,7 +423,7 @@ wheels = [
 
 [[package]]
 name = "poetry"
-version = "2.3.0"
+version = "2.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "build" },
@@ -448,9 +448,9 @@ dependencies = [
     { name = "virtualenv" },
     { name = "xattr", marker = "sys_platform == 'darwin'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4a/fb/200d1d4ddff66242be16455137667ac0c0e3524613f1f546667d8241fdf6/poetry-2.3.0.tar.gz", hash = "sha256:56ef2a8188bb5157ef9df7e3d968cd27bacad34710818f1cd0306a46ac0b4d41", size = 3462277, upload-time = "2026-01-18T13:46:31.099Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f0/c1/1cafdad3dae01aa5693339809847d89cd1379d1dff0329da7d791a2db5c4/poetry-2.3.1.tar.gz", hash = "sha256:423cbccfe3533155ce9f49e929780a1386e564b2d97d2380664ea388cfe1191c", size = 3462579, upload-time = "2026-01-20T14:53:13.01Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b5/62/57b295561c73367c9d38ad2c3e136511b2313f828e4fa4d3fc47815038ae/poetry-2.3.0-py3-none-any.whl", hash = "sha256:1f3c8912bac57c4e9a2a523dbed0271784fa696bbfb24d1b4d7931aa29b7906d", size = 287575, upload-time = "2026-01-18T13:46:29.405Z" },
+    { url = "https://files.pythonhosted.org/packages/a6/a5/560ce63c4f8af1179f441da7eb25fc326ced597f7cb3d470e41be1d6add1/poetry-2.3.1-py3-none-any.whl", hash = "sha256:1067f3a500b57b348a7b7a2ec0ee8e09dce65164a21926b1f6713481d94e8ee4", size = 287765, upload-time = "2026-01-20T14:53:11.567Z" },
 ]
 
 [[package]]
