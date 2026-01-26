@@ -99,7 +99,7 @@ RUN apt-get update \
 
 # s6-overlay
 # renovate: datasource=github-releases packageName=just-containers/s6-overlay versioning=loose
-ARG S6_OVERLAY_VERSION="v3.2.1.0"
+ARG S6_OVERLAY_VERSION="v3.2.2.0"
 WORKDIR /tmp
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 ADD https://github.com/just-containers/s6-overlay/releases/download/${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz.sha256 /tmp
