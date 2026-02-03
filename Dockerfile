@@ -162,8 +162,10 @@ COPY --from=s6overlay /etc/s6-overlay/ /etc/s6-overlay/
 # Supercronic
 COPY --from=supercronic /usr/local/bin/supercronic /usr/local/bin/supercronic
 
+# uv
+COPY --from=irrd /root/.local/share/uv /root/.local/share/uv
+
 # IRRd
-COPY --chown=irrd:irrd --from=irrd /root/.local/share/uv /root/.local/share/uv
 RUN adduser --gecos '' --disabled-password irrd \
     && mkdir -p /opt/irrd \
     && chown -R irrd:irrd /opt/irrd
@@ -172,7 +174,6 @@ COPY --chown=irrd:irrd --chmod=700 ./scripts/init-irrd.sh /opt/irrd/init-irrd.sh
 COPY --chown=irrd:irrd --chmod=700 ./scripts/init-irrd.py /opt/irrd/init-irrd.py
 
 # IRRexplorer
-COPY --chown=irrexplorer:irrexplorer --from=irrexplorer /root/.local/share/uv /root/.local/share/uv
 RUN adduser --gecos '' --disabled-password irrexplorer \
     && mkdir -p /opt/irrexplorer \
     && chown -R irrexplorer:irrexplorer /opt/irrexplorer \
