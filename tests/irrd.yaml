@@ -5,15 +5,15 @@ irrd:
   user: irrd
   group: irrd
   access_lists:
-    http_database_status:
+    status:
       - "0.0.0.0/0"
       - "::/0"
-    filtered_nrtm:
+    nrtm:
       - "0.0.0.0/0"
       - "::/0"
   server:
     http:
-      status_access_list: http_database_status
+      status_access_list: status
       interface: "::0"
       port: 8080
       url: "https://irrd.local"
@@ -51,4 +51,4 @@ irrd:
       import_source: "ftp://ftp.radb.net/radb/dbase/bell.db.gz"
       nrtm_host: nrtm.radb.net
       nrtm_port: 43
-      nrtm_access_list: filtered_nrtm
+      nrtm_access_list: nrtm
