@@ -16,7 +16,7 @@ irrd:
       status_access_list: status
       interface: "::0"
       port: 8080
-      url: "https://irrd.local"
+      url: "http://localhost"
     whois:
       interface: "::0"
       max_connections: 50
@@ -24,7 +24,7 @@ irrd:
   auth:
     gnupg_keyring: /opt/irrd/gnupg-keyring/
   email:
-    from: noreply@irrd.local
+    from: noreply@localhost
     smtp: localhost
     notification_header: |
       This is to notify you of changes in the {sources_str} database
