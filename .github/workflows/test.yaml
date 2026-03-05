@@ -22,8 +22,8 @@ jobs:
           interval=10
           end=$((SECONDS+timeout))
 
-          echo "Waiting for IRRd to be ready at http://127.0.0.1:8080/v1/status ..."
-          until curl -fsSLX GET http://127.0.0.1:8080/v1/status | grep -q "Listening on"; do
+          echo "Waiting for IRRd to be ready at http://localhost:8080/v1/status ..."
+          until curl -fsSLX GET http://localhost:8080/v1/status | grep -q "Listening on"; do
             if (( SECONDS >= end )); then
               echo "IRRd not ready within ${timeout}s" >&2
               exit 1
