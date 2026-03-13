@@ -1,6 +1,20 @@
 ---
 name: irrd
 services:
+  ## Connection Test ##
+  connection_test:
+    command: ./test.sh
+    container_name: connection_test
+    depends_on:
+      - irrd
+    image: debian:trixie-slim
+    networks:
+      - irrd
+    restart: "no"
+    volumes:
+      - type: bind
+        source: ./test.sh
+        target: /test.sh
   ## IRRd ##
   # Ports: 43/tcp, 8000/tcp
   irrd:
