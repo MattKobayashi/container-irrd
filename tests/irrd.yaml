@@ -16,7 +16,7 @@ irrd:
       status_access_list: status
       interface: "::0"
       port: 8080
-      url: "http://localhost"
+      url: "http://irrd"
     whois:
       interface: "::0"
       max_connections: 50

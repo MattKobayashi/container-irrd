@@ -1,75 +1,12 @@
 ---
 jobs:
-  image:
-    name: Image
-    permissions:
-      contents: read
-    runs-on: ubuntu-24.04
-    steps:
-      # Checkout repository
-      # https://github.com/actions/checkout
-      - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      # Build and start image
-      - name: Build and start image
-        run: |
-          docker compose up --detach
-        working-directory: tests
-      # Readiness check
-      - name: Readiness check
-        run: |
-          timeout=300
-          interval=10
-          end=$((SECONDS+timeout))
-
-          echo "Waiting for IRRd to be ready at http://localhost:8080/v1/status ..."
-          until curl -fsSLX GET http://localhost:8080/v1/status | grep -q "Listening on"; do
-            if (( SECONDS >= end )); then
-              echo "IRRd not ready within ${timeout}s" >&2
-              exit 1
-            fi
-            echo "IRRd not ready yet; retrying in ${interval}s..."
-            sleep ${interval}
-          done
-          echo "IRRd is ready."
-
-          echo "Waiting for IRR Explorer to be ready at http://127.0.0.1:8000/ ..."
-          until curl -fsSLX GET http://127.0.0.1:8000/ | grep -q "<title>IRR explorer</title>"; do
-            if (( SECONDS >= end )); then
-              echo "IRR Explorer not ready within ${timeout}s" >&2
-              exit 1
-            fi
-            echo "IRR Explorer not ready yet; retrying in ${interval}s..."
-            sleep ${interval}
-          done
-          echo "IRR Explorer is ready."
-      # Grab the container logs
-      - if: ${{ !cancelled() }}
-        name: Grab container logs
-        run: |
-          docker compose logs irrd
-        working-directory: tests
-      # Stop and remove containers
-      - if: ${{ !cancelled() }}
-        name: Stop and remove container
-        run: |
-          docker compose down
-        working-directory: tests
-  shell:
-    name: Shell
-    permissions:
-      contents: read
-      security-events: write
-    runs-on: ubuntu-24.04
-    steps:
-      # Checkout repository
-      # https://github.com/actions/checkout
-      - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      # Run ShellCheck
-      # https://www.shellcheck.net/wiki/GitHub-Actions
-      - name: Run ShellCheck
-        run: find . -type f -name "*.sh" -exec shellcheck {} +
+  test:
+    name: Test
+    uses: MattKobayashi/actions-workflows/.github/workflows/test.yaml@686b2644a231ae70f253b9e1f63e978cddfecad5 # v1.4.1
+    with:
+      app-container-name: irrd
+      test-container-name: connection_test
+      test-directory: tests
 name: Test
 on:
   pull_request:
@@ -78,3 +15,4 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  pull-requests: write
