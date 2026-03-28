@@ -4,7 +4,7 @@ version = "1.2"
 description = "IRRd"
 requires-python = "==3.13.11"
 dependencies = [
-    "irrd==4.5.1",
+    "irrd==4.5.2",
     "psycopg2-binary>=2.9.11",
     "pyyaml>=6.0.3",
 ]

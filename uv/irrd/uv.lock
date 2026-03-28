@@ -273,7 +273,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "irrd", specifier = "==4.5.1" },
+    { name = "irrd", specifier = "==4.5.2" },
     { name = "psycopg2-binary", specifier = ">=2.9.11" },
     { name = "pyyaml", specifier = ">=6.0.3" },
 ]
@@ -474,7 +474,7 @@ sdist = { url = "https://files.pythonhosted.org/packages/64/a4/9c0d88d95666ff157
 
 [[package]]
 name = "irrd"
-version = "4.5.1"
+version = "4.5.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "alembic" },
@@ -522,9 +522,9 @@ dependencies = [
     { name = "wtforms-bootstrap5" },
     { name = "zxcvbn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/0b/d4/9f4fee5868cb0fa8a51daa616f61dca943fc58d0b309243cfcfb529c0774/irrd-4.5.1.tar.gz", hash = "sha256:03b0634dfe3479f7c5764598e1329c5d9b8ac053a98aa84532115638c29ab100", size = 379515, upload-time = "2026-03-04T14:04:39.676Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/fd/c4/5a61101f77e726151bf69237bcd4d8ca6c9d10d543f31bf53e277c75e12c/irrd-4.5.2.tar.gz", hash = "sha256:7df152d725ef5449e272144b859b4c810453a8f788dd4f402e6f1cc45aab701d", size = 380994, upload-time = "2026-03-28T09:17:08.676Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/0b/5a5a4e1d6858bd64c8f27a3d3874d2d8c57b5ee4a0088a1a6ca330957941/irrd-4.5.1-py3-none-any.whl", hash = "sha256:88ab1d8023e8fa2f6b1662801b50fb232815580aa88736de773955016670411b", size = 461601, upload-time = "2026-03-04T14:04:37.201Z" },
+    { url = "https://files.pythonhosted.org/packages/7f/8c/dd44aedbf4fc1adba9384238909932d7aef93f609140d700529218870f97/irrd-4.5.2-py3-none-any.whl", hash = "sha256:5b6230e1f5961c25cddb5b19c9976bdac2af39f249904bbecb71041ebe476599", size = 464295, upload-time = "2026-03-28T09:17:07.334Z" },
 ]
 
 [[package]]
