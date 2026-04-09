@@ -286,8 +286,8 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "irrd", specifier = "==4.5.2" },
-    { name = "psycopg2-binary", specifier = ">=2.9.11" },
-    { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "psycopg2-binary", specifier = "==2.9.11" },
+    { name = "pyyaml", specifier = "==6.0.3" },
 ]
 
 [[package]]
