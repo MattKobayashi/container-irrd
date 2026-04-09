@@ -65,7 +65,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv/irrexplorer/uv.lock,target=uv.lock \
     --mount=type=bind,source=uv/irrexplorer/pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-dev
-RUN /opt/irrexplorer/.venv/bin/poetry install
+RUN /opt/irrexplorer/.venv/bin/poetry update \
+    && /opt/irrexplorer/.venv/bin/poetry install
 
 
 FROM debian:trixie-slim@sha256:4ffb3a1511099754cddc70eb1b12e50ffdb67619aa0ab6c13fcd800a78ef7c7a AS nodejs
