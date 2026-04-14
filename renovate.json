@@ -9,6 +9,5 @@
       "matchPackageNames": ["/^(.*/)?node$/"],
       "allowedVersions": "<=20"
     }
-  ],
-  "platformAutomerge": true
+  ]
 }
