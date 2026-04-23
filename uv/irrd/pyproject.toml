@@ -5,6 +5,4 @@ description = "IRRd"
 requires-python = "==3.14.4"
 dependencies = [
     "irrd==4.5.2",
-    "psycopg2-binary==2.9.11",
-    "pyyaml==6.0.3",
 ]
