@@ -2,7 +2,7 @@
 name = "container-irrexplorer"
 version = "1.3"
 description = "IRR Explorer"
-requires-python = "==3.14.4"
+requires-python = "==3.14.5"
 dependencies = [
     "poetry==2.4.1",
     "python-dotenv==1.2.2",
