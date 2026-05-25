@@ -14,11 +14,6 @@ RUN apt-get update \
     libpq-dev \
     python3-dev
 
-# Fix for datrie builds
-# (https://github.com/pytries/datrie/issues/101)
-ARG CFLAGS=-Wno-error=incompatible-pointer-types
-ARG CXXFLAGS=-Wno-error=incompatible-pointer-types
-
 # IRRd
 WORKDIR /opt/irrd
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -39,10 +34,6 @@ RUN apt-get update \
     build-essential \
     ca-certificates \
     curl
-
-# Fix for py-radix builds
-ARG CFLAGS=-Wno-error=incompatible-pointer-types
-ARG CXXFLAGS=-Wno-error=incompatible-pointer-types
 
 # Node.js and NPM
 # renovate: datasource=github-releases packageName=nodejs/node
