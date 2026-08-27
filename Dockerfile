@@ -136,6 +136,7 @@ FROM debian:trixie-slim@sha256:d7e12182ce18b85b93007c1dedf31f2d29e01ccf3182cc401
 RUN apt-get update \
     && apt-get --no-install-recommends --yes install \
     adduser \
+    ca-certificates \
     libpq5 \
     && chmod 0655 /root
 
