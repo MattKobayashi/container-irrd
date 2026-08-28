@@ -9,19 +9,15 @@ import psycopg2.sql
 import yaml
 
 
-def execute_sql_command(
-    db_host, db_admin_database, db_admin_user, db_admin_password, db_sql_command, max_retries=10, retry_interval=5
-):
+def execute_sql_command(db_dsn, db_sql_command, max_retries=10, retry_interval=5):
     """Executes an SQL command (like CREATE DATABASE) on a PostgreSQL server,
        waiting for the database to be ready.
 
     Args:
-        host: Hostname or IP of the PostgreSQL server.
-        admin_database: Name of an existing database for the initial connection
-            (typically 'postgres' or a similar administrative database).
-        admin_user: Username with sufficient privileges to create databases.
-        admin_password: Password for the admin_user.
-        sql_command: The SQL command to execute.
+        db_dsn: Connection parameters as a dict, in the form returned by
+            psycopg2.extensions.parse_dsn.  Must name an existing database and
+            a user with sufficient privileges to create databases.
+        db_sql_command: The SQL command to execute.
         max_retries: Maximum number of connection attempts (default 10).
         retry_interval: Time in seconds between retries (default 5).
 
@@ -33,9 +29,7 @@ def execute_sql_command(
     while retries < max_retries:
         try:
             # Attempt connection to the admin database
-            conn = psycopg2.connect(
-                host=db_host, database=db_admin_database, user=db_admin_user, password=db_admin_password
-            )
+            conn = psycopg2.connect(**db_dsn)
             conn.set_session(autocommit=True)
             cur = conn.cursor()
 
@@ -73,7 +67,6 @@ except FileNotFoundError:
     sys.exit(1)
 
 dsn = psycopg2.extensions.parse_dsn(irrd_conf["irrd"]["database_url"])
-host = dsn["host"]
 admin_database = dsn["dbname"]
 admin_user = dsn["user"]
 admin_password = dsn["password"]
@@ -82,7 +75,7 @@ admin_password = dsn["password"]
 sql_command = psycopg2.sql.SQL("""
 CREATE DATABASE {database};
 """).format(database=psycopg2.sql.Identifier(admin_database))
-execute_sql_command(host, admin_database, admin_user, admin_password, sql_command)
+execute_sql_command(dsn, sql_command)
 
 # Do the rest
 sql_command = psycopg2.sql.SQL("""
@@ -95,4 +88,4 @@ GRANT ALL ON SCHEMA public TO {user};
     password=psycopg2.sql.Literal(admin_password),
     database=psycopg2.sql.Identifier(admin_database),
 )
-execute_sql_command(host, admin_database, admin_user, admin_password, sql_command)
+execute_sql_command(dsn, sql_command)
