@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 import psycopg2
 import psycopg2.extensions
+import psycopg2.sql
 import yaml
 from dotenv import set_key
 
@@ -83,9 +84,9 @@ user = dsn["user"]
 password = dsn["password"]
 
 # Create the database first
-sql_command = f"""
+sql_command = psycopg2.sql.SQL("""
 CREATE DATABASE {database};
-"""
+""").format(database=psycopg2.sql.Identifier(database))
 execute_sql_command(
     db_host=host,
     db_admin_database=admin_database,
@@ -95,11 +96,15 @@ execute_sql_command(
 )
 
 # Do the rest
-sql_command = f"""
-CREATE ROLE {user} WITH LOGIN ENCRYPTED PASSWORD '{password}';
+sql_command = psycopg2.sql.SQL("""
+CREATE ROLE {user} WITH LOGIN ENCRYPTED PASSWORD {password};
 GRANT ALL PRIVILEGES ON DATABASE {database} TO {user};
 GRANT ALL ON SCHEMA public TO {user};
-"""
+""").format(
+    user=psycopg2.sql.Identifier(user),
+    password=psycopg2.sql.Literal(password),
+    database=psycopg2.sql.Identifier(database),
+)
 execute_sql_command(host, database, admin_user, admin_password, sql_command)
 
 # Export environment variables

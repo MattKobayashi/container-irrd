@@ -5,6 +5,7 @@ import time
 import sys
 import psycopg2
 import psycopg2.extensions
+import psycopg2.sql
 import yaml
 
 
@@ -78,16 +79,20 @@ admin_user = dsn["user"]
 admin_password = dsn["password"]
 
 # Create the database first
-sql_command = f"""
-CREATE DATABASE {admin_database};
-"""
+sql_command = psycopg2.sql.SQL("""
+CREATE DATABASE {database};
+""").format(database=psycopg2.sql.Identifier(admin_database))
 execute_sql_command(host, admin_database, admin_user, admin_password, sql_command)
 
 # Do the rest
-sql_command = f"""
-CREATE ROLE {admin_user} WITH LOGIN ENCRYPTED PASSWORD '{admin_password}';
-GRANT ALL PRIVILEGES ON DATABASE {admin_database} TO {admin_user};
+sql_command = psycopg2.sql.SQL("""
+CREATE ROLE {user} WITH LOGIN ENCRYPTED PASSWORD {password};
+GRANT ALL PRIVILEGES ON DATABASE {database} TO {user};
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
-GRANT ALL ON SCHEMA public TO {admin_user};
-"""
+GRANT ALL ON SCHEMA public TO {user};
+""").format(
+    user=psycopg2.sql.Identifier(admin_user),
+    password=psycopg2.sql.Literal(admin_password),
+    database=psycopg2.sql.Identifier(admin_database),
+)
 execute_sql_command(host, admin_database, admin_user, admin_password, sql_command)
