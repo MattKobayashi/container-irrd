@@ -4,6 +4,7 @@
 import time
 import sys
 import psycopg2
+import psycopg2.extensions
 import yaml
 
 
@@ -70,12 +71,11 @@ except FileNotFoundError:
     print("Error: Could not find the configuration file at /opt/irrd/irrd.yaml.")
     sys.exit(1)
 
-host = irrd_conf["irrd"]["database_url"].split("/")[2].split("@")[1]
-admin_database = irrd_conf["irrd"]["database_url"].split("/")[3]
-db_url = irrd_conf["irrd"]["database_url"].split("/")
-db_credentials = db_url[2].split("@")[0].split(":")
-admin_user = db_credentials[0]
-admin_password = db_credentials[1]
+dsn = psycopg2.extensions.parse_dsn(irrd_conf["irrd"]["database_url"])
+host = dsn["host"]
+admin_database = dsn["dbname"]
+admin_user = dsn["user"]
+admin_password = dsn["password"]
 
 # Create the database first
 sql_command = f"""

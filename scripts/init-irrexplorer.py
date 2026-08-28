@@ -5,6 +5,7 @@ import time
 import sys
 from pathlib import Path
 import psycopg2
+import psycopg2.extensions
 import yaml
 from dotenv import set_key
 
@@ -72,16 +73,14 @@ except FileNotFoundError:
     print("Error: Could not find the configuration file at /opt/irrexplorer/irrexplorer.yaml.")
     sys.exit(1)
 
-db_url = irrexplorer_conf["irrexplorer"]["database_url"]
-host = db_url.split("/")[2].split("@")[1]
+dsn = psycopg2.extensions.parse_dsn(irrexplorer_conf["irrexplorer"]["database_url"])
+host = dsn["host"]
 admin_database = irrexplorer_conf["irrexplorer"]["admin_database"]
 admin_user = irrexplorer_conf["irrexplorer"]["admin_user"]
 admin_password = irrexplorer_conf["irrexplorer"]["admin_password"]
-database = irrexplorer_conf["irrexplorer"]["database_url"].split("/")[3]
-db_url_parts = irrexplorer_conf["irrexplorer"]["database_url"].split("/")
-db_user_info = db_url_parts[2].split("@")[0].split(":")
-user = db_user_info[0]
-password = db_user_info[1]
+database = dsn["dbname"]
+user = dsn["user"]
+password = dsn["password"]
 
 # Create the database first
 sql_command = f"""
