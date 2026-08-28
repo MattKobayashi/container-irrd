@@ -4,22 +4,20 @@
 import time
 import sys
 import psycopg2
+import psycopg2.extensions
+import psycopg2.sql
 import yaml
 
 
-def execute_sql_command(
-    db_host, db_admin_database, db_admin_user, db_admin_password, db_sql_command, max_retries=10, retry_interval=5
-):
+def execute_sql_command(db_dsn, db_sql_command, max_retries=10, retry_interval=5):
     """Executes an SQL command (like CREATE DATABASE) on a PostgreSQL server,
        waiting for the database to be ready.
 
     Args:
-        host: Hostname or IP of the PostgreSQL server.
-        admin_database: Name of an existing database for the initial connection
-            (typically 'postgres' or a similar administrative database).
-        admin_user: Username with sufficient privileges to create databases.
-        admin_password: Password for the admin_user.
-        sql_command: The SQL command to execute.
+        db_dsn: Connection parameters as a dict, in the form returned by
+            psycopg2.extensions.parse_dsn.  Must name an existing database and
+            a user with sufficient privileges to create databases.
+        db_sql_command: The SQL command to execute.
         max_retries: Maximum number of connection attempts (default 10).
         retry_interval: Time in seconds between retries (default 5).
 
@@ -31,9 +29,7 @@ def execute_sql_command(
     while retries < max_retries:
         try:
             # Attempt connection to the admin database
-            conn = psycopg2.connect(
-                host=db_host, database=db_admin_database, user=db_admin_user, password=db_admin_password
-            )
+            conn = psycopg2.connect(**db_dsn)
             conn.set_session(autocommit=True)
             cur = conn.cursor()
 
@@ -70,24 +66,26 @@ except FileNotFoundError:
     print("Error: Could not find the configuration file at /opt/irrd/irrd.yaml.")
     sys.exit(1)
 
-host = irrd_conf["irrd"]["database_url"].split("/")[2].split("@")[1]
-admin_database = irrd_conf["irrd"]["database_url"].split("/")[3]
-db_url = irrd_conf["irrd"]["database_url"].split("/")
-db_credentials = db_url[2].split("@")[0].split(":")
-admin_user = db_credentials[0]
-admin_password = db_credentials[1]
+dsn = psycopg2.extensions.parse_dsn(irrd_conf["irrd"]["database_url"])
+admin_database = dsn["dbname"]
+admin_user = dsn["user"]
+admin_password = dsn["password"]
 
 # Create the database first
-sql_command = f"""
-CREATE DATABASE {admin_database};
-"""
-execute_sql_command(host, admin_database, admin_user, admin_password, sql_command)
+sql_command = psycopg2.sql.SQL("""
+CREATE DATABASE {database};
+""").format(database=psycopg2.sql.Identifier(admin_database))
+execute_sql_command(dsn, sql_command)
 
 # Do the rest
-sql_command = f"""
-CREATE ROLE {admin_user} WITH LOGIN ENCRYPTED PASSWORD '{admin_password}';
-GRANT ALL PRIVILEGES ON DATABASE {admin_database} TO {admin_user};
+sql_command = psycopg2.sql.SQL("""
+CREATE ROLE {user} WITH LOGIN ENCRYPTED PASSWORD {password};
+GRANT ALL PRIVILEGES ON DATABASE {database} TO {user};
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
-GRANT ALL ON SCHEMA public TO {admin_user};
-"""
-execute_sql_command(host, admin_database, admin_user, admin_password, sql_command)
+GRANT ALL ON SCHEMA public TO {user};
+""").format(
+    user=psycopg2.sql.Identifier(admin_user),
+    password=psycopg2.sql.Literal(admin_password),
+    database=psycopg2.sql.Identifier(admin_database),
+)
+execute_sql_command(dsn, sql_command)

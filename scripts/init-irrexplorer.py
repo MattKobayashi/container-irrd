@@ -5,22 +5,20 @@ import time
 import sys
 from pathlib import Path
 import psycopg2
+import psycopg2.extensions
+import psycopg2.sql
 import yaml
 from dotenv import set_key
 
 
-def execute_sql_command(
-    db_host, db_admin_database, db_admin_user, db_admin_password, sql_cmd, max_retries=10, retry_interval=5
-):
+def execute_sql_command(db_dsn, sql_cmd, max_retries=10, retry_interval=5):
     """Executes an SQL command (like CREATE DATABASE) on a PostgreSQL server,
        waiting for the database to be ready.
 
     Args:
-        host: Hostname or IP of the PostgreSQL server.
-        admin_db: Name of an existing database for the initial connection
-            (typically 'postgres' or a similar administrative database).
-        db_admin_user: Username with sufficient privileges to create databases.
-        db_admin_password: Password for the admin_user.
+        db_dsn: Connection parameters as a dict, in the form returned by
+            psycopg2.extensions.parse_dsn.  Must name an existing database and
+            a user with sufficient privileges to create databases.
         sql_cmd: The SQL command to execute.
         max_retries: Maximum number of connection attempts (default 10).
         retry_interval: Time in seconds between retries (default 5).
@@ -33,9 +31,7 @@ def execute_sql_command(
     while retries < max_retries:
         try:
             # Attempt connection to the admin database
-            conn = psycopg2.connect(
-                host=db_host, database=db_admin_database, user=db_admin_user, password=db_admin_password
-            )
+            conn = psycopg2.connect(**db_dsn)
             conn.set_session(autocommit=True)
             cur = conn.cursor()
 
@@ -72,36 +68,34 @@ except FileNotFoundError:
     print("Error: Could not find the configuration file at /opt/irrexplorer/irrexplorer.yaml.")
     sys.exit(1)
 
-db_url = irrexplorer_conf["irrexplorer"]["database_url"]
-host = db_url.split("/")[2].split("@")[1]
-admin_database = irrexplorer_conf["irrexplorer"]["admin_database"]
-admin_user = irrexplorer_conf["irrexplorer"]["admin_user"]
-admin_password = irrexplorer_conf["irrexplorer"]["admin_password"]
-database = irrexplorer_conf["irrexplorer"]["database_url"].split("/")[3]
-db_url_parts = irrexplorer_conf["irrexplorer"]["database_url"].split("/")
-db_user_info = db_url_parts[2].split("@")[0].split(":")
-user = db_user_info[0]
-password = db_user_info[1]
+dsn = psycopg2.extensions.parse_dsn(irrexplorer_conf["irrexplorer"]["database_url"])
+admin_dsn = {
+    "host": dsn["host"],
+    "dbname": irrexplorer_conf["irrexplorer"]["admin_database"],
+    "user": irrexplorer_conf["irrexplorer"]["admin_user"],
+    "password": irrexplorer_conf["irrexplorer"]["admin_password"],
+}
+database = dsn["dbname"]
+user = dsn["user"]
+password = dsn["password"]
 
 # Create the database first
-sql_command = f"""
+sql_command = psycopg2.sql.SQL("""
 CREATE DATABASE {database};
-"""
-execute_sql_command(
-    db_host=host,
-    db_admin_database=admin_database,
-    db_admin_user=admin_user,
-    db_admin_password=admin_password,
-    sql_cmd=sql_command,
-)
+""").format(database=psycopg2.sql.Identifier(database))
+execute_sql_command(db_dsn=admin_dsn, sql_cmd=sql_command)
 
 # Do the rest
-sql_command = f"""
-CREATE ROLE {user} WITH LOGIN ENCRYPTED PASSWORD '{password}';
+sql_command = psycopg2.sql.SQL("""
+CREATE ROLE {user} WITH LOGIN ENCRYPTED PASSWORD {password};
 GRANT ALL PRIVILEGES ON DATABASE {database} TO {user};
 GRANT ALL ON SCHEMA public TO {user};
-"""
-execute_sql_command(host, database, admin_user, admin_password, sql_command)
+""").format(
+    user=psycopg2.sql.Identifier(user),
+    password=psycopg2.sql.Literal(password),
+    database=psycopg2.sql.Identifier(database),
+)
+execute_sql_command({**admin_dsn, "dbname": database}, sql_command)
 
 # Export environment variables
 env_file = Path("/opt/irrexplorer/.env")
