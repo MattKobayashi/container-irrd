@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "matchPackageNames": ["/^(.*/)?postgres$/"],
-      "allowedVersions": "<=15"
+      "allowedVersions": "<=18"
     },
     {
       "matchPackageNames": ["/^(.*/)?node$/"],
