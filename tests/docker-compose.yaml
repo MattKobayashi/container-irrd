@@ -7,7 +7,7 @@ services:
     container_name: connection_test
     depends_on:
       - irrd
-    image: debian:trixie-slim
+    image: debian:trixie-slim@sha256:a99cfc517144bc59b1978475ec53b46ecabec7e43635402ee5b77cc54cd1b20a
     networks:
       - irrd
     restart: "no"
