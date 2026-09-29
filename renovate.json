@@ -1,5 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  ignorePaths: [
+    "**/node_modules/**",
+    "**/bower_components/**"
+  ]
   "packageRules": [
     {
       "matchPackageNames": ["/^(.*/)?postgres$/"],
