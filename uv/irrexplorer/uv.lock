@@ -296,11 +296,11 @@ wheels = [
 
 [[package]]
 name = "filelock"
-version = "4.2.9"
+version = "4.2.10"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a3/1d/d730c664fcb4f1d264a722722a3134cf0881854f73c1fd58abf87572f232/filelock-4.2.9.tar.gz", hash = "sha256:96530b7c538d4ea08493ab067247aab7948c54d8cd622cce711c97cccc5d9896", size = 663116, upload-time = "2026-11-04T18:37:10.014Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a1/cf/05bcdacabdc0aec7dc8e19d76281bd82325df62dae3b6430e9ba57397689/filelock-4.2.10.tar.gz", hash = "sha256:fcc3c0cb8bfe7f4b3bb0e231c04b15dbad068cb3c2515f343d8fde4dce93bd5d", size = 670595, upload-time = "2026-11-09T18:58:00.54Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/00/05/76184fe08339723d643ab47887a8e4de8f2921ca4e008617ab7490af7857/filelock-4.2.9-py3-none-any.whl", hash = "sha256:a379c50a729e5b68c8519a4d26489f755d9769960a236ecd838190e2a78db2e9", size = 164734, upload-time = "2026-11-04T18:37:08.273Z" },
+    { url = "https://files.pythonhosted.org/packages/ef/90/5d0096a325aa0f83ba7a3968bfb485b67e32c947bdf9cd0fcb4b485be718/filelock-4.2.10-py3-none-any.whl", hash = "sha256:9479aaeb4db20b5a53e3da28493edd24720b66b8a0b84030aa56ccdf243d6857", size = 218040, upload-time = "2026-11-09T18:57:59.088Z" },
 ]
 
 [[package]]
@@ -760,17 +760,17 @@ wheels = [
 
 [[package]]
 name = "xattr"
-version = "1.3.0"
+version = "1.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cffi" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/08/d5/25f7b19af3a2cb4000cac4f9e5525a40bec79f4f5d0ac9b517c0544586a0/xattr-1.3.0.tar.gz", hash = "sha256:30439fabd7de0787b27e9a6e1d569c5959854cb322f64ce7380fedbfa5035036", size = 17148, upload-time = "2025-10-13T22:16:47.353Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7d/52/0f200beac11d7b6bb6fca01601154369420bcac5551f903894cbc17c8b3e/xattr-1.3.1.tar.gz", hash = "sha256:55003624ea1d4a0e769d803892dd66697fb485f1aab7269dfcfab68ea5bd72f4", size = 17442, upload-time = "2026-11-10T18:12:26.215Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/24/49/b8bc589427696d67bc2b0992c188e576f70242c586a379f97698772c0c3d/xattr-1.3.0-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:630c85020282bd0bcb72c3d031491c4e91d7f29bb4c094ebdfb9db51375c5b07", size = 23543, upload-time = "2025-10-13T22:16:25.242Z" },
-    { url = "https://files.pythonhosted.org/packages/9d/0a/03192e78071cfb86e6d8ceae0e5dcec4bacf0fd734755263aabd01532e50/xattr-1.3.0-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:95f1e14a4d9ca160b4b78c527bf2bac6addbeb0fd9882c405fc0b5e3073a8752", size = 18673, upload-time = "2025-10-13T22:16:26.224Z" },
-    { url = "https://files.pythonhosted.org/packages/3d/36/9ab4f0b5c3d10df3aceaecf7e395cabe7fb7c7c004b2dc3f3cff0ef70fc3/xattr-1.3.0-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:88557c0769f64b1d014aada916c9630cfefa38b0be6c247eae20740d2d8f7b47", size = 18877, upload-time = "2025-10-13T22:16:27.164Z" },
-    { url = "https://files.pythonhosted.org/packages/97/3f/6d50237645edd83e9dc6bf6521e4e28335845b674cabefd69f12bc4db59a/xattr-1.3.0-cp314-cp314t-macosx_10_15_universal2.whl", hash = "sha256:f3bef26fd2d5d7b17488f4cc4424a69894c5a8ed71dd5f657fbbf69f77f68a51", size = 23788, upload-time = "2025-10-13T22:16:32.465Z" },
-    { url = "https://files.pythonhosted.org/packages/f4/8b/3efd48c85e08d1bfcbd46f87368b155d3d3de78bb660b408fbaff7623572/xattr-1.3.0-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:64f1fb511f8463851e0d97294eb0e0fde54b059150da90582327fb43baa1bb92", size = 18825, upload-time = "2025-10-13T22:16:33.442Z" },
-    { url = "https://files.pythonhosted.org/packages/fd/19/4b4e3e2ea5fa213ff4220e84450628fecde042b0961e7b4e6d845e555ade/xattr-1.3.0-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:1e6c216927b16fd4b72df655d5124b69b2a406cb3132b5231179021182f0f0d1", size = 19023, upload-time = "2025-10-13T22:16:34.395Z" },
+    { url = "https://files.pythonhosted.org/packages/f9/4f/0d8114aae15ab88b1c0264c9c93435e84bd003a646ea9fbc184498a00db9/xattr-1.3.1-cp314-cp314-macosx_10_15_universal2.whl", hash = "sha256:d64791ecc33161dad8efeb61525b7e980e7bca479701c63cf66ae0224f85238d", size = 23546, upload-time = "2026-11-10T18:11:48.709Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/7d/48bb19bc5f9bae76f16a0fb8a5acc4a538896231ee7c5d0782e6e4739c3d/xattr-1.3.1-cp314-cp314-macosx_10_15_x86_64.whl", hash = "sha256:8400af67a08d884a691e1dda9bf3585cd8287ab720a0160bc79cfd14fe1e4bed", size = 18678, upload-time = "2026-11-10T18:11:49.862Z" },
+    { url = "https://files.pythonhosted.org/packages/d6/64/3ee3e0c84a991c5eb5a475cb523000c9e9575ad2058c8531b38e84fc8d35/xattr-1.3.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:b690eefc4e36ae3142d6a2ca28dec3ae0d95924c362efa919a5e2444ce9c6c50", size = 18879, upload-time = "2026-11-10T18:11:51.008Z" },
+    { url = "https://files.pythonhosted.org/packages/54/ca/a97ae165807561f456a0e22678d5e817fdaeac011a23351a25d1442a3441/xattr-1.3.1-cp314-cp314t-macosx_10_15_universal2.whl", hash = "sha256:0ebd34bf3154e77b69eb542ae8c2d725c7ce4c6a35c10668c5b6b408c191931e", size = 23789, upload-time = "2026-11-10T18:11:56.342Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/cd/7ab3677d42f779bbaf86792e8e9e56837ed5101dde10cd6c6bded0536654/xattr-1.3.1-cp314-cp314t-macosx_10_15_x86_64.whl", hash = "sha256:71fd7eb2d49c17e6f9431f8925cbc37b3062947c664c63980ba0380880f2e3f1", size = 18828, upload-time = "2026-11-10T18:11:57.565Z" },
+    { url = "https://files.pythonhosted.org/packages/6b/0f/bdac36a9c5a27ef846129f6999f1aea2bacff50df478f08ef1ffa63835b0/xattr-1.3.1-cp314-cp314t-macosx_11_0_arm64.whl", hash = "sha256:e2a1218ada203b5b243f69cf9dd8b67f1d6449a61225fc94c9a3a092739934fa", size = 19022, upload-time = "2026-11-10T18:11:58.782Z" },
 ]
